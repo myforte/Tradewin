@@ -7,6 +7,7 @@ const dataProviders = {
 };
 
 export function* LOAD_DATA() {
+  console.log("Load Data nifty500saga.js Called");
   yield put({
     type: "nifty500/SET_STATE",
     payload: {

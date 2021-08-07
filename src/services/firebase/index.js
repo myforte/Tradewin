@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import { notification } from "antd";
 import "firebase/auth";
 import "firebase/database";
+import { store } from "../..";
 
 // const firebaseConfig = {
 //   apiKey: 'AIzaSyBJVhr2WZshEGR7egcxoygQIphKOkKVIYQ',
@@ -59,16 +60,18 @@ export async function register(email, password, name) {
       });
     });
 }
-
 export async function getNifty500Data() {
   let childData;
+
   let key = 0;
-  const data = [];
+  let data = [];
   return new Promise(function (resolve, reject) {
     firebase
       .database()
       .ref("nifty500")
       .on("value", function (snapshot) {
+        data = [];
+        const dataSize = snapshot.numChildren();
         snapshot.forEach(function (childSnapshot) {
           childData = childSnapshot.val();
           key += 1;
@@ -77,6 +80,14 @@ export async function getNifty500Data() {
             data.push({ key: childSnapshot.key, data: childData });
           } else {
             data.push({ key: childSnapshot.key, data: childData });
+            if (data.length === dataSize)
+              store.dispatch({
+                type: "nifty500/SET_STATE",
+                payload: {
+                  data,
+                  loading: false,
+                },
+              });
             resolve(data);
           }
 

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Table } from 'reactstrap'
+import React from "react";
+import { Table } from "reactstrap";
 
 class TablesBootstrapResponsive extends React.Component {
   render() {
@@ -36,8 +36,8 @@ class TablesBootstrapResponsive extends React.Component {
           </tbody>
         </Table>
       </div>
-    )
+    );
   }
 }
 
-export default TablesBootstrapResponsive
+export default TablesBootstrapResponsive;
